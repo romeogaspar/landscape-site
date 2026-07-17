@@ -1,4 +1,5 @@
 import type { Image } from "sanity";
+import type { PortableTextBlock } from "@portabletext/types";
 
 export interface Address {
   street?: string;
@@ -67,7 +68,7 @@ export interface Credential {
 export interface AboutPage {
   heading?: string;
   introText?: string;
-  story?: unknown[];
+  story?: PortableTextBlock[];
   teamPhoto?: Image;
   yearsInBusiness?: number;
   credentials?: Credential[];
@@ -79,7 +80,7 @@ export interface Service {
   title: string;
   slug: { current: string };
   summary: string;
-  description?: unknown[];
+  description?: PortableTextBlock[];
   image?: Image;
   order?: number;
 }
