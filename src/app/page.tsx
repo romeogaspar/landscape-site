@@ -49,7 +49,7 @@ export default async function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/40 to-forest-950/10" />
         </div>
         <Container className="relative flex min-h-[640px] flex-col items-start justify-center gap-6 py-32">
-          <span className="text-xs font-semibold tracking-[0.25em] text-gold-light uppercase">
+          <span className="text-xs font-semibold tracking-[0.25em] text-charcoal uppercase">
             Design &middot; Installation &middot; Maintenance
           </span>
           <h1 className="max-w-2xl font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
