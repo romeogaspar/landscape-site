@@ -56,13 +56,19 @@ export function Navbar({ siteSettings }: { siteSettings: SiteSettings | null }) 
           </Link>
         </div>
 
-        <button
-          type="button"
-          className="flex h-10 w-10 items-center justify-center lg:hidden"
+        <label
+          htmlFor="mobile-menu-toggle"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
         >
+          <input
+            type="checkbox"
+            id="mobile-menu-toggle"
+            className="sr-only"
+            checked={open}
+            onChange={(e) => setOpen(e.target.checked)}
+          />
           <svg viewBox="0 0 24 24" className="h-6 w-6 stroke-forest-950" fill="none">
             {open ? (
               <path d="M6 6l12 12M18 6L6 18" strokeWidth="1.75" strokeLinecap="round" />
@@ -70,7 +76,7 @@ export function Navbar({ siteSettings }: { siteSettings: SiteSettings | null }) 
               <path d="M4 7h16M4 12h16M4 17h16" strokeWidth="1.75" strokeLinecap="round" />
             )}
           </svg>
-        </button>
+        </label>
       </Container>
 
       {open && (
