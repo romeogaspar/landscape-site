@@ -92,7 +92,7 @@ async function main() {
   });
 
   console.log("Creating services...");
-  const services = await Promise.all([
+  await Promise.all([
     client.createOrReplace({
       _id: "seed-service-garden-design",
       _type: "service",

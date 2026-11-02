@@ -30,8 +30,8 @@ export default async function ContactPage() {
 
       <section className="pb-24 sm:pb-32">
         <Container className="grid gap-14 lg:grid-cols-5">
-          <div className="flex flex-col gap-8 lg:col-span-2">
-            <div className="flex flex-col gap-4 rounded-sm border border-forest-900/10 bg-white p-8">
+          <div className="flex min-w-0 flex-col gap-8 lg:col-span-2">
+            <div className="flex flex-col gap-4 rounded-sm border border-forest-900/10 bg-white p-6 sm:p-8">
               {settings?.phone && (
                 <a
                   href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`}
@@ -51,7 +51,7 @@ export default async function ContactPage() {
                   <svg viewBox="0 0 24 24" className="h-5 w-5 flex-shrink-0 fill-current">
                     <path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2.2.2 7.3 5.8a.8.8 0 0 0 1 0l7.3-5.8H4.2Z" />
                   </svg>
-                  <span className="text-lg">{settings.email}</span>
+                  <span className="min-w-0 break-words text-lg">{settings.email}</span>
                 </a>
               )}
               {settings?.address?.street && (
@@ -94,7 +94,7 @@ export default async function ContactPage() {
             )}
           </div>
 
-          <div className="rounded-sm border border-forest-900/10 bg-white p-8 lg:col-span-3">
+          <div className="min-w-0 rounded-sm border border-forest-900/10 bg-white p-6 sm:p-8 lg:col-span-3">
             <h2 className="mb-6 font-serif text-2xl text-forest-950">Send Us a Message</h2>
             <ContactForm />
           </div>
