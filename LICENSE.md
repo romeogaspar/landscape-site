@@ -28,7 +28,7 @@ Building many sites for clients? Contact us about an agency license: https://ces
 
 The Kit uses open-source software that keeps its own licenses, including Next.js, React and Sanity Studio (all MIT-licensed). Sanity's hosted content service is a separate product with its own terms and pricing: https://www.sanity.io/legal
 
-The Kit does not include photographs. The placeholder images it generates are simple SVG graphics created for this Kit. The photos shown on the live demo are not part of the Kit and are not licensed to you. Fonts (Fraunces and Inter) are loaded from Google Fonts through next/font and are licensed under the SIL Open Font License. Before launching, upload your own photos and replace any demo content with your own.
+The 11 demo photos in `seed/images` come from Wikimedia Commons and keep their own licenses (public domain, CC0, or Creative Commons Attribution 2.0 / 2.5). They were resized and cropped. They are not owned by Cessyrona Software Studio and are not covered by this license: each photographer's license applies, and the Kit's `/credits` page lists the author, license and source of every photo. If you keep a CC BY photo on your site, you must keep its credit. The team avatars are simple SVG graphics created for this Kit. Fonts (Fraunces and Inter) are loaded from Google Fonts through next/font and are licensed under the SIL Open Font License. Before launching, replace the demo photos and content with your own, or confirm that your use of them is allowed.
 
 ## No warranty
 

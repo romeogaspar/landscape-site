@@ -8,7 +8,7 @@ A full-service landscaping / garden care company website built with Next.js and 
 
 - The Next.js App Router website (project root)
 - `studio/` — the Sanity Studio (the CMS admin where you edit content)
-- `scripts/seed.ts` — loads the demo content (with generated placeholder graphics) into your Sanity dataset
+- `scripts/seed.ts` and `seed/images/` — load the demo content and demo photos into your Sanity dataset
 - `LICENSE.md`, `.env.example` and `studio/.env.example`
 
 ## Tech stack
@@ -63,7 +63,7 @@ SANITY_STUDIO_DATASET=production
 npm run seed
 ```
 
-This creates the site settings, home and about pages, 4 services, 3 before/after gallery projects, 2 team members and 4 reviews, with generated placeholder graphics instead of photos. It is safe to run again: it replaces the demo documents instead of duplicating them.
+This creates the site settings, home and about pages, 4 services, 3 before/after gallery projects, 2 team members and 4 reviews. The demo photos are loaded from `seed/images`, and the team members get simple generated avatars. It is safe to run again: it replaces the demo documents instead of duplicating them.
 
 You can skip this step and enter everything by hand in the Studio.
 
@@ -76,7 +76,7 @@ npm run dev
 
 The Studio opens at `http://localhost:3333`. From there you can edit the business name, phone, hours and address, the home page hero, the about page, services, gallery projects (with before/after photo pairs), team members and reviews, and read the messages sent through the contact form (Contact Submissions).
 
-**Replace the placeholder graphics with your own photos** by uploading them on each document in the Studio. The kit does not include any photographs.
+**Replace the demo photos with your own** by uploading them on each document in the Studio (home hero, services, gallery projects, team members). The demo photos come from Wikimedia Commons (public domain, CC0 or CC BY) and are credited on the `/credits` page. Once you have replaced them with your own, delete the `seed/` folder, `src/lib/credits.ts`, the `/credits` page (`src/app/credits`), its footer link and its entry in `src/app/sitemap.ts`. If you keep any CC BY photo, keep its credit.
 
 To give yourself or a client a permanent CMS address, deploy the Studio:
 

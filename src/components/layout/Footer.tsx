@@ -103,7 +103,10 @@ export function Footer({ siteSettings }: { siteSettings: SiteSettings | null }) 
       <div className="border-t border-cream/10 py-6">
         <Container>
           <p className="text-center text-xs text-cream/50">
-            &copy; {year} {businessName}. All rights reserved.
+            &copy; {year} {businessName}. All rights reserved.{" "}
+            <Link href="/credits" className="underline underline-offset-2 hover:text-cream">
+              Photo credits
+            </Link>
           </p>
         </Container>
       </div>

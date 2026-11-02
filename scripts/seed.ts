@@ -2,13 +2,9 @@ import { config } from "dotenv";
 import { createClient } from "next-sanity";
 
 config({ path: ".env.local" });
-import {
-  heroSvg,
-  gardenBeforeSvg,
-  gardenAfterSvg,
-  servicesIconSvg,
-  portraitSvg,
-} from "./svg";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { portraitSvg } from "./svg";
 
 for (const name of ["NEXT_PUBLIC_SANITY_PROJECT_ID", "NEXT_PUBLIC_SANITY_DATASET", "SANITY_API_WRITE_TOKEN"]) {
   if (!process.env[name]) {
@@ -45,16 +41,24 @@ async function uploadSvg(svg: string, filename: string) {
   return { _type: "image" as const, asset: { _type: "reference" as const, _ref: asset._id } };
 }
 
+// Demo photos live in seed/images (credits: src/lib/credits.ts and the /credits page).
+async function uploadPhoto(name: string) {
+  const filename = `${name}.jpg`;
+  const buffer = readFileSync(join(process.cwd(), "seed", "images", filename));
+  const asset = await client.assets.upload("image", buffer, { filename, contentType: "image/jpeg" });
+  return { _type: "image" as const, asset: { _type: "reference" as const, _ref: asset._id } };
+}
+
 async function main() {
-  console.log("Uploading placeholder imagery...");
-  const hero = await uploadSvg(heroSvg(), "hero.svg");
+  console.log("Uploading demo imagery...");
+  const hero = await uploadPhoto("hero");
   const teamPhoto = await uploadSvg(portraitSvg(1), "team-group.svg");
 
   const serviceImages = {
-    design: await uploadSvg(servicesIconSvg("leaf"), "service-design.svg"),
-    lawn: await uploadSvg(servicesIconSvg("mower"), "service-lawn.svg"),
-    hardscape: await uploadSvg(servicesIconSvg("paver"), "service-hardscape.svg"),
-    irrigation: await uploadSvg(servicesIconSvg("drop"), "service-irrigation.svg"),
+    design: await uploadPhoto("service-design"),
+    lawn: await uploadPhoto("service-lawn"),
+    hardscape: await uploadPhoto("service-hardscape"),
+    irrigation: await uploadPhoto("service-irrigation"),
   };
 
   const gardens = [
@@ -65,8 +69,8 @@ async function main() {
 
   const galleryAssets = [];
   for (let i = 0; i < gardens.length; i++) {
-    const before = await uploadSvg(gardenBeforeSvg(i + 1), `${gardens[i].key}-before.svg`);
-    const after = await uploadSvg(gardenAfterSvg(i + 1), `${gardens[i].key}-after.svg`);
+    const before = await uploadPhoto(`${gardens[i].key}-before`);
+    const after = await uploadPhoto(`${gardens[i].key}-after`);
     galleryAssets.push({ ...gardens[i], before, after });
   }
 
