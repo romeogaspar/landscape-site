@@ -13,12 +13,18 @@ export function ContactForm() {
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
+      {/* Honeypot field: hidden from people, filled in by bots */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="name" className="text-xs font-semibold tracking-wide text-forest-950 uppercase">
             Name
           </label>
-          <input id="name" name="name" type="text" required className={inputClasses} placeholder="Jane Smith" />
+          <input id="name" name="name" type="text" required maxLength={100} className={inputClasses} placeholder="Jane Smith" />
         </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="phone" className="text-xs font-semibold tracking-wide text-forest-950 uppercase">
@@ -43,6 +49,7 @@ export function ContactForm() {
           id="message"
           name="message"
           required
+          maxLength={4000}
           rows={5}
           className={inputClasses}
           placeholder="Tell us about your property and what you'd like done..."

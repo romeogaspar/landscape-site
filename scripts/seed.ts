@@ -10,6 +10,13 @@ import {
   portraitSvg,
 } from "./svg";
 
+for (const name of ["NEXT_PUBLIC_SANITY_PROJECT_ID", "NEXT_PUBLIC_SANITY_DATASET", "SANITY_API_WRITE_TOKEN"]) {
+  if (!process.env[name]) {
+    console.error(`Missing ${name}. Copy .env.example to .env.local and fill it in first.`);
+    process.exit(1);
+  }
+}
+
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
@@ -64,7 +71,8 @@ async function main() {
   }
 
   console.log("Creating team members...");
-  const alex = await client.create({
+  const alex = await client.createOrReplace({
+    _id: "seed-team-alex",
     _type: "teamMember",
     name: "Alex Rivera",
     role: "Lead Landscape Designer",
@@ -73,7 +81,8 @@ async function main() {
     order: 1,
   });
 
-  const jordan = await client.create({
+  const jordan = await client.createOrReplace({
+    _id: "seed-team-jordan",
     _type: "teamMember",
     name: "Jordan Lee",
     role: "Grounds Maintenance Manager",
@@ -84,7 +93,8 @@ async function main() {
 
   console.log("Creating services...");
   const services = await Promise.all([
-    client.create({
+    client.createOrReplace({
+      _id: "seed-service-garden-design",
       _type: "service",
       title: "Garden Design & Installation",
       slug: { _type: "slug", current: "garden-design-installation" },
@@ -96,7 +106,8 @@ async function main() {
       image: serviceImages.design,
       order: 1,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-service-lawn-care",
       _type: "service",
       title: "Lawn Care & Maintenance",
       slug: { _type: "slug", current: "lawn-care-maintenance" },
@@ -108,7 +119,8 @@ async function main() {
       image: serviceImages.lawn,
       order: 2,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-service-hardscaping",
       _type: "service",
       title: "Hardscaping & Patios",
       slug: { _type: "slug", current: "hardscaping-patios" },
@@ -120,7 +132,8 @@ async function main() {
       image: serviceImages.hardscape,
       order: 3,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-service-irrigation",
       _type: "service",
       title: "Irrigation & Outdoor Lighting",
       slug: { _type: "slug", current: "irrigation-outdoor-lighting" },
@@ -137,7 +150,8 @@ async function main() {
   console.log("Creating gallery projects...");
   const galleryProjects = await Promise.all(
     galleryAssets.map((g, i) =>
-      client.create({
+      client.createOrReplace({
+        _id: `seed-gallery-${g.key}`,
         _type: "galleryProject",
         title: g.title,
         slug: { _type: "slug", current: g.key },
@@ -154,7 +168,8 @@ async function main() {
 
   console.log("Creating testimonials...");
   await Promise.all([
-    client.create({
+    client.createOrReplace({
+      _id: "seed-testimonial-sarah",
       _type: "testimonial",
       customerName: "Sarah M.",
       rating: 5,
@@ -163,7 +178,8 @@ async function main() {
       date: "2026-05-12",
       featured: true,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-testimonial-david",
       _type: "testimonial",
       customerName: "David K.",
       rating: 5,
@@ -172,7 +188,8 @@ async function main() {
       date: "2026-04-03",
       featured: true,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-testimonial-priya",
       _type: "testimonial",
       customerName: "Priya R.",
       rating: 5,
@@ -181,7 +198,8 @@ async function main() {
       date: "2026-03-21",
       featured: true,
     }),
-    client.create({
+    client.createOrReplace({
+      _id: "seed-testimonial-tom",
       _type: "testimonial",
       customerName: "Tom H.",
       rating: 4,
@@ -256,7 +274,7 @@ async function main() {
     credentials: [
       { _key: "lic", title: "Licensed & Insured", issuer: "State Contractors Board" },
       { _key: "hort", title: "Certified Horticulturist on Staff" },
-      { _key: "nalp", title: "Member, National Association of Landscape Professionals" },
+      { _key: "assoc", title: "Member, Professional Landscape Association" },
     ],
     seo: {
       _type: "seo",
@@ -265,7 +283,7 @@ async function main() {
     },
   });
 
-  console.log("Done. Team refs:", alex._id, jordan._id);
+  console.log("Done. Seeded team:", alex._id, jordan._id);
 }
 
 main().catch((err) => {

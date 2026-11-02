@@ -6,12 +6,19 @@ import {structure} from './structure'
 
 const SINGLETON_TYPES = new Set(['siteSettings', 'homePage', 'aboutPage'])
 
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
+
+if (!projectId) {
+  throw new Error('Missing SANITY_STUDIO_PROJECT_ID. Copy .env.example to .env in the studio folder and fill it in.')
+}
+
 export default defineConfig({
   name: 'default',
-  title: 'Freelance Landscaping',
+  title: 'Landscaping Studio',
 
-  projectId: '05yxfa3p',
-  dataset: 'production',
+  projectId,
+  dataset,
 
   plugins: [structureTool({structure}), visionTool()],
 
